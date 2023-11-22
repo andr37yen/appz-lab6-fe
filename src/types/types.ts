@@ -21,3 +21,9 @@ export interface IPatient {
   phoneNumber: string;
   sex: Gender;
 }
+
+export interface AuthContextType {
+  user: IPatient | null;
+  signin: (emain: string, password: string) => Promise<void>;
+  signout: () => Promise<void>;
+}

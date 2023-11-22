@@ -1,12 +1,8 @@
 import React, { createContext, ReactNode } from "react";
-import {  IPatient } from "../types/types";
+import {  AuthContextType } from "../types/types";
 import { useAuth } from "../hooks/useAuth";
 
-interface AuthContextType {
-  user: IPatient | null;
-  signin: (emain: string, password: string) => Promise<void>;
-  signout: () => Promise<void>;
-}
+
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
