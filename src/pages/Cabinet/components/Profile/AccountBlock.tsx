@@ -1,16 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../providers/authProvider";
-
-// enum EditType {
-//   NONE = "NONE",
-//   PERSONAL = "PERSONAL",
-//   PROFILE = "PROFILE",
-// }
+import Modal from "../../../../components/Modal";
+import ProfileEditForm from "./AccountForm";
+import { IPatient, ProfileEditType } from "../../../../types/types";
 
 const ProfileBlock: React.FC = () => {
   const { user, update } = useContext(AuthContext)!;
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [editType, setEditType] = useState<ProfileEditType>("none");
 
-  const handleEdit = () => {};
+  const handleSubmit = (updatedUser: IPatient) => {
+    update(updatedUser);
+  };
+
+  useEffect(() => {
+    if (editType === "none") {
+      setModalOpen(false);
+    } else if (!isModalOpen) {
+      setModalOpen(true);
+    }
+  }, [editType, isModalOpen]);
 
   return (
     <div className="space-y-4 flex flex-col content-end h-full justify-evenly">
@@ -23,7 +32,7 @@ const ProfileBlock: React.FC = () => {
           <strong>Password:</strong> {"*".repeat(8)}
         </div>
         <button
-          onClick={handleEdit}
+          onClick={() => setEditType("account_info")}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-lg mt-4">
           Edit Profile
         </button>
@@ -41,11 +50,14 @@ const ProfileBlock: React.FC = () => {
           <strong>Age:</strong> {user && user.age}
         </div>
         <div>
-          <strong>Date of Birth:</strong> {user && user.dateOfBirth.toDateString()}
+          <strong>Date of Birth:</strong>{" "}
+          {user && user.dateOfBirth.toDateString()}
         </div>
         <div>
           <strong>Address:</strong>{" "}
-          {`${user && user.address.city}, ${user && user.address.addres}, ${user && user.address.country}`}
+          {`${user && user.address.city}, ${user && user.address.address}, ${
+            user && user.address.country
+          }`}
         </div>
         <div>
           <strong>Phone Number:</strong> {user && user.phoneNumber}
@@ -54,11 +66,20 @@ const ProfileBlock: React.FC = () => {
           <strong>Sex:</strong> {user && user.sex}
         </div>
         <button
-          onClick={handleEdit}
+          onClick={() => setEditType("personal_info")}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-lg mt-4">
           Edit Personal Info
         </button>
       </div>
+
+      <Modal isOpen={isModalOpen} onClose={() => setEditType("none")}>
+        <ProfileEditForm
+          patient={user!}
+          editType={editType}
+          submitUser={handleSubmit}
+          closeModal={() => setEditType("none")}
+        />
+      </Modal>
     </div>
   );
 };

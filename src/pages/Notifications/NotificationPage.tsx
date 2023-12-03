@@ -1,15 +1,19 @@
 import { useMemo, useState } from "react";
+import { NotificationViewState, SortTypesState } from "../../types/types";
+import { isNotRejectoedOrExpired } from "../../utils/timeHelper";
 import NotificationControls from "./components/NotificationControls";
 import NotificationGrid from "./components/NotificationGrid";
 import { useNotifications } from "./hooks/useNotification";
-import {
-  NotificationStatus,
-  NotificationViewState,
-  SortTypesState,
-} from "../../types/types";
 
 function NotificationsPage() {
-  const { notifications, loading, error } = useNotifications();
+  const {
+    notifications,
+    loading,
+    error,
+    createNotification,
+    editNotification,
+    deleteNotification,
+  } = useNotifications();
   const [viewType, setViewType] = useState<NotificationViewState>("active");
   const [sortType, setSortType] = useState<SortTypesState>("none");
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,21 +23,13 @@ function NotificationsPage() {
     setViewType(type);
   };
 
-  const displayedNotifications = notifications.filter((notification) => {
-    if (viewType === "active") {
-      return (
-        notification.status === NotificationStatus.Active ||
-        notification.status === NotificationStatus.PendingConfirmation
-      );
-    }
-
-    return (
-      notification.status === NotificationStatus.Expired ||
-      notification.status === NotificationStatus.Deleted
-    );
-  });
-
   const filteredAndSortedNotifications = useMemo(() => {
+    const displayedNotifications = notifications.filter((notification) =>
+      viewType === "active"
+        ? isNotRejectoedOrExpired(notification)
+        : !isNotRejectoedOrExpired(notification)
+    );
+
     const filtered = displayedNotifications.filter(
       (notification) =>
         notification.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -50,7 +46,7 @@ function NotificationsPage() {
     }
 
     return sorted;
-  }, [sortType, searchQuery, displayedNotifications]);
+  }, [sortType, searchQuery, notifications, viewType]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -62,13 +58,18 @@ function NotificationsPage() {
         currentView={viewType}
         curentSortType={sortType}
         currentSearchQuery={searchQuery}
-        onToggleView={handleToggleView}
         isModalOpen={isModalOpen}
+        onToggleView={handleToggleView}
         setSortType={setSortType}
         setSearchQuery={setSearchQuery}
         setModalOpen={setModalOpen}
+        createNotification={createNotification}
       />
-      <NotificationGrid notifications={filteredAndSortedNotifications} />
+      <NotificationGrid
+        notifications={filteredAndSortedNotifications}
+        onDelete={deleteNotification}
+        onEdit={editNotification}
+      />
     </div>
   );
 }

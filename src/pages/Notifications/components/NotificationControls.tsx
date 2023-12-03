@@ -1,7 +1,11 @@
 import React from "react";
-import { NotificationViewState, SortTypesState } from "../../../types/types";
+import {
+  IBaseNotification,
+  NotificationViewState,
+  SortTypesState,
+} from "../../../types/types";
 import Modal from "../../../components/Modal";
-import NotificationForm from "./NotificationForm";
+import NotificationCreateForm from "./NotificationCreateForm";
 
 interface NotificationControlsProps {
   onToggleView: (newState: NotificationViewState) => void;
@@ -12,6 +16,7 @@ interface NotificationControlsProps {
   currentSearchQuery: string;
   setModalOpen: (newModalState: boolean) => void;
   isModalOpen: boolean;
+  createNotification: (newNotification: IBaseNotification) => void;
 }
 
 const NotificationControls: React.FC<NotificationControlsProps> = ({
@@ -23,6 +28,7 @@ const NotificationControls: React.FC<NotificationControlsProps> = ({
   currentSearchQuery,
   setModalOpen,
   isModalOpen,
+  createNotification,
 }) => {
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortType(e.target.value as SortTypesState);
@@ -72,10 +78,11 @@ const NotificationControls: React.FC<NotificationControlsProps> = ({
           Create Notification
         </button>
 
-        <Modal
-          isOpen={isModalOpen}
-          onClose={() => setModalOpen(false)}>
-          <NotificationForm onSubmit={() => {}} onClose={() => setModalOpen(false)} />
+        <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+          <NotificationCreateForm
+            onSubmit={createNotification}
+            onClose={() => setModalOpen(false)}
+          />
         </Modal>
       </div>
     </div>

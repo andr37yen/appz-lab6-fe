@@ -1,37 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   IAppointment,
-  IBaseNotification,
   INotification,
-  IPrescription,
+  IPrescription
 } from "../../../types/types";
 import { formatDate } from "../../../utils/timeHelper";
 import { useDoctors } from "../hooks/useDoctors";
 
-interface NotificationFormProps {
-  onSubmit: (notification: IBaseNotification) => void;
-  initialData?: INotification;
+interface NotificationEditFormProps {
+  onSubmit: (notification: INotification) => void;
   onClose: () => void;
+  notification: IPrescription | IAppointment;
 }
 
-const NotificationForm: React.FC<NotificationFormProps> = ({
+const NotificationEditForm: React.FC<NotificationEditFormProps> = ({
   onSubmit,
   onClose,
-  initialData,
+  notification,
 }) => {
-  const [notification, setNotification] = useState<
-    Partial<IPrescription | IAppointment>
-  >(initialData || {});
+  const [editedNotification, setEditedNotification] = useState<
+    IPrescription | IAppointment
+  >({
+    ...notification,
+  });
   const { doctors } = useDoctors();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(notification as IBaseNotification);
+    onSubmit(editedNotification as INotification);
+    onClose();
   };
-
-  useEffect(() => {
-    console.log(notification);
-  }, [notification]);
 
   return (
     <form onSubmit={handleSubmit} className="w-96">
@@ -44,9 +42,12 @@ const NotificationForm: React.FC<NotificationFormProps> = ({
         <input
           id="title"
           type="text"
-          value={notification.label}
+          value={editedNotification.label}
           onChange={(e) =>
-            setNotification({ ...notification, label: e.target.value })
+            setEditedNotification({
+              ...editedNotification,
+              label: e.target.value,
+            })
           }
           placeholder="Label"
           className="px-4 py-2 border rounded-md w-full"
@@ -62,9 +63,12 @@ const NotificationForm: React.FC<NotificationFormProps> = ({
         <input
           id="description"
           type="text"
-          value={notification.description}
+          value={editedNotification.description}
           onChange={(e) =>
-            setNotification({ ...notification, description: e.target.value })
+            setEditedNotification({
+              ...editedNotification,
+              description: e.target.value,
+            })
           }
           placeholder="Description"
           className="px-4 py-2 border rounded-md w-full"
@@ -81,10 +85,13 @@ const NotificationForm: React.FC<NotificationFormProps> = ({
               type="radio"
               id="appointment"
               name="notificationType"
-              value={notification.type}
+              value={editedNotification.type}
               className="mr-2"
               onClick={() =>
-                setNotification({ ...notification, type: "appointment" })
+                setEditedNotification({
+                  ...editedNotification,
+                  type: "appointment",
+                })
               }
             />
             <label htmlFor="option1" className="text-gray-600">
@@ -97,10 +104,13 @@ const NotificationForm: React.FC<NotificationFormProps> = ({
               type="radio"
               id="option2"
               name="notificationType"
-              value={notification.type}
+              value={editedNotification.type}
               className="mr-2"
               onClick={() =>
-                setNotification({ ...notification, type: "prescription" })
+                setEditedNotification({
+                  ...editedNotification,
+                  type: "prescription",
+                })
               }
             />
             <label htmlFor="option2" className="text-gray-600">
@@ -110,29 +120,31 @@ const NotificationForm: React.FC<NotificationFormProps> = ({
         </div>
       </div>
 
-      {notification.type === "appointment" && (
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Doctor:
-          </label>
-          <select
-            id="notificationStatus"
-            name="notificationStatus"
-            className="px-4 py-2 border rounded-md w-full"
-            onChange={(e) =>
-              setNotification({ ...notification, doctor: e.target.value })
-            }>
-            {doctors &&
-              doctors.map((doctor, index) => (
-                <option key={index} value={doctor}>
-                  {doctor}
-                </option>
-              ))}
-          </select>
-        </div>
-      )}
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Doctor:
+        </label>
+        <select
+          id="notificationStatus"
+          name="notificationStatus"
+          className="px-4 py-2 border rounded-md w-full"
+          value={editedNotification.doctor}
+          onChange={(e) =>
+            setEditedNotification({
+              ...editedNotification,
+              doctor: e.target.value,
+            })
+          }>
+          {doctors &&
+            doctors.map((doctor, index) => (
+              <option key={index} value={doctor}>
+                {doctor}
+              </option>
+            ))}
+        </select>
+      </div>
 
-      {notification.type === "prescription" && (
+      {editedNotification.type === "prescription" && (
         <>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -142,9 +154,14 @@ const NotificationForm: React.FC<NotificationFormProps> = ({
               type="text"
               placeholder="Enter drug intake regularity"
               className="px-4 py-2 border rounded-md w-full"
+              value={(editedNotification as IPrescription).regularity}
               onChange={(e) =>
-                setNotification({ ...notification, regularity: e.target.value })
-              }/>
+                setEditedNotification({
+                  ...editedNotification,
+                  regularity: e.target.value,
+                })
+              }
+            />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -154,9 +171,14 @@ const NotificationForm: React.FC<NotificationFormProps> = ({
               type="number"
               placeholder="Enter prescription duration"
               className="px-4 py-2 border rounded-md w-full"
+              value={(editedNotification as IPrescription).duration}
               onChange={(e) =>
-                setNotification({ ...notification, duration: Number(e.target.value) })
-              }/>
+                setEditedNotification({
+                  ...editedNotification,
+                  duration: Number(e.target.value),
+                })
+              }
+            />
           </div>
         </>
       )}
@@ -165,16 +187,18 @@ const NotificationForm: React.FC<NotificationFormProps> = ({
         <label
           htmlFor="type"
           className="block text-gray-700 text-sm font-bold mb-2">
-          Date:
+          {editedNotification.type === "prescription"
+            ? "Prescription start date"
+            : "Appointment date"}
         </label>
         <input
           id="content"
           type="date"
-          value={formatDate(notification.date || new Date())}
+          value={formatDate(editedNotification.date || new Date())}
           onChange={(e) => {
             console.log(e.target.value);
-            setNotification({
-              ...notification,
+            setEditedNotification({
+              ...editedNotification,
               date: new Date(e.target.value),
             });
           }}
@@ -200,5 +224,5 @@ const NotificationForm: React.FC<NotificationFormProps> = ({
   );
 };
 
-export default NotificationForm;
+export default NotificationEditForm;
 

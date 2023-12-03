@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IAppointment,
   INotification,
   IPrescription,
-  NotificationStatus,
 } from "../../../types/types";
 import {
   getPrescriptionTimeLeft,
   getTimeLeft,
+  isNotRejectoedOrExpired,
 } from "../../../utils/timeHelper";
+import Modal from "../../../components/Modal";
+import NotificationEditForm from "./NotificationEditForm";
 
 export interface NotificationItemProps {
   notification: INotification;
-  onEdit: (id: string) => void;
+  onEdit: (updatedNotification: INotification) => void;
   onDelete: (id: string) => void;
 }
 
@@ -21,25 +23,29 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   onEdit,
   onDelete,
 }) => {
-  const isArchived =
-    notification.status === NotificationStatus.Expired ||
-    notification.status === NotificationStatus.Deleted;
+  const [modalOpen, setModalOpen] = useState(false);
+  const isArchived = !isNotRejectoedOrExpired(notification);
   const bgColor = isArchived
     ? "bg-gray-200"
     : notification.type === "appointment"
     ? "bg-green-200"
-    : "bg-red-200";
+    : "bg-yellow-200";
 
   return (
     <div className={`p-4 rounded-lg shadow-md ${bgColor}`}>
       <div className="font-semibold">{notification.label}</div>
       <div className="text-sm">{notification.description}</div>
-      <div className="text-sm">Status: {notification.status}</div>
+      <div className="text-sm">
+        Type: <em>{notification.type.toUpperCase()}</em>
+      </div>
+      <div className="text-sm">
+        Status: <em>{notification.status}</em>
+      </div>
+      <div className="text-sm">
+        Doctor: {(notification as IAppointment).doctor}
+      </div>
       {notification.type === "appointment" && (
         <>
-          <div className="text-sm">
-            Doctor: {(notification as IAppointment).doctor}
-          </div>
           <div className="text-sm text-gray-600">
             {notification.date.toLocaleDateString()} -{" "}
             {notification.date.toLocaleTimeString()}
@@ -75,25 +81,27 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
         {!isArchived && (
           <>
             <button
-              onClick={() => onEdit(notification.id)}
+              onClick={() => setModalOpen(true)}
               className="text-blue-500 hover:text-blue-700 text-sm">
               Edit
             </button>
-            <button
-              onClick={() => onDelete(notification.id)}
-              className="text-gray-500 hover:text-gray-700 text-sm">
-              Archive
-            </button>
           </>
         )}
-        {isArchived && (
-          <button
-            onClick={() => onDelete(notification.id)}
-            className="text-red-500 hover:text-red-700 text-sm">
-            Delete
-          </button>
-        )}
+
+        <button
+          onClick={() => onDelete(notification.id)}
+          className="text-red-500 hover:text-red-700 text-sm">
+          Delete
+        </button>
       </div>
+
+      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <NotificationEditForm
+          onSubmit={onEdit}
+          onClose={() => setModalOpen(false)}
+          notification={notification}
+        />
+      </Modal>
     </div>
   );
 };

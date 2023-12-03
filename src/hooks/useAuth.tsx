@@ -6,7 +6,7 @@ const dummyUser: IPatient = {
   address: {
     country: "Ukraine",
     city: "Lviv city",
-    addres: "example st, ap 9",
+    address: "example st, ap 9",
   },
   age: 20.5,
   dateOfBirth: new Date("2003-01-01"),
@@ -42,7 +42,7 @@ export const useAuth = () => {
     user,
     signin,
     signout,
-    update
+    update,
   };
 };
 

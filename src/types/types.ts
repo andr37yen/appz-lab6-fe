@@ -1,7 +1,7 @@
 interface Address {
   country: string;
   city: string;
-  addres: string;
+  address: string;
 }
 export enum Gender {
   MALE = "MALE",
@@ -45,10 +45,10 @@ export interface INotification extends IBaseNotification {
 export enum NotificationStatus {
   PENDING_CONFIRMATION = "PENDING_CONFIRMATION",
   ACTIVE = "ACTIVE",
+  REJECTED = "REJECTED",
 }
 
-export interface IAppointment extends INotification {
-}
+export interface IAppointment extends INotification {}
 
 export interface IPrescription extends INotification {
   duration: number;
@@ -58,6 +58,7 @@ export interface IPrescription extends INotification {
 export type NotificationType = "appointment" | "prescription";
 export type NotificationViewState = "active" | "archived";
 export type SortTypesState = "date" | "type" | "none";
+export type ProfileEditType = "personal_info" | "account_info" | "none";
 
 export interface IDocument extends IBaseDocument {
   id: string;
