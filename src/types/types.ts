@@ -35,6 +35,7 @@ export interface IBaseNotification {
   description: string;
   date: Date;
   status: NotificationStatus;
+  doctor: string;
 }
 
 export interface INotification extends IBaseNotification {
@@ -47,7 +48,6 @@ export enum NotificationStatus {
 }
 
 export interface IAppointment extends INotification {
-  doctor: string;
 }
 
 export interface IPrescription extends INotification {
@@ -59,7 +59,7 @@ export type NotificationType = "appointment" | "prescription";
 export type NotificationViewState = "active" | "archived";
 export type SortTypesState = "date" | "type" | "none";
 
-export interface IDocument extends IDocumentView {
+export interface IDocument extends IBaseDocument {
   id: string;
   userId: string;
   url: string;
