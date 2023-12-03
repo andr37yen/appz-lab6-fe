@@ -4,10 +4,9 @@ interface Address {
   addres: string;
 }
 export enum Gender {
-  MALE = "Male",
-  FEMALE = "Female",
-  OTHER = "Other",
-  PIZDOLIZ = "PIZDOLIZ",
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+  OTHER = "OTHER",
 }
 
 export interface IPatient {
@@ -43,10 +42,8 @@ export interface INotification extends IBaseNotification {
 }
 
 export enum NotificationStatus {
-  PendingConfirmation = "PENDING",
-  Expired = "EXPIRED",
-  Deleted = "DELETED",
-  Active = "ACTIVE",
+  PENDING_CONFIRMATION = "PENDING_CONFIRMATION",
+  ACTIVE = "ACTIVE",
 }
 
 export interface IAppointment extends INotification {
@@ -62,14 +59,19 @@ export type NotificationType = "appointment" | "prescription";
 export type NotificationViewState = "active" | "archived";
 export type SortTypesState = "date" | "type" | "none";
 
-export interface IDocument extends IBaseDocument {
+export interface IDocument extends IDocumentView {
   id: string;
+  userId: string;
+  url: string;
 }
 
 export interface IBaseDocument {
-  id: string;
   title: string;
-  description: string;
   isVerified: boolean;
   uploadDate: Date;
 }
+
+export interface IDocumentView extends IBaseDocument {
+  content: string;
+}
+
