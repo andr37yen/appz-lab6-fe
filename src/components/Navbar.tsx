@@ -13,7 +13,7 @@ function Navbar() {
 
   return (
     <nav className="sticky top-0 z-100 bg-blue-500 w-full h-18 p-4">
-      <div className="container mx-auto h-full flex items-center justify-end px-4">
+      <div className="mx-auto h-full flex items-center justify-end px-4 w-full">
         {user ? (
           <>
             <div>

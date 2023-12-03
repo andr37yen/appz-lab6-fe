@@ -1,42 +1,30 @@
-// useAuth.tsx
 import { useState } from "react";
 import { Gender, IPatient } from "../types/types";
-import axios from "axios";
-
 const dummyUser: IPatient = {
-  email: "sucker123@gmail.com",
+  id: "1",
+  email: "example@gmail.com",
   address: {
-    country: "Faina Ukraina",
-    city: "Pidzalupnii Lviv",
-    address: "Paper box under the bridge",
+    country: "Ukraine",
+    city: "Lviv city",
+    addres: "example st, ap 9",
   },
   age: 20.5,
   dateOfBirth: new Date("2003-01-01"),
-  firstName: "Kryssiuk",
+  firstName: "Johan",
   lastName: "Bobalyachenko",
-  password: "suck1234",
-  phoneNumber: "6969696",
-  sex: Gender.PIZDOLIZ,
+  password: "pass1234",
+  phoneNumber: "380951252352",
+  sex: Gender.MALE,
 };
 
 export const useAuth = () => {
   const [user, setUser] = useState<IPatient | null>(null);
 
-  const signin = async (email: string, password: string): Promise<void> => {
+  const signin = async (_email: string, _password: string): Promise<void> => {
     try {
       // For testing porpouses only
       setUser(dummyUser);
-      return
-
-      const response = await axios.post<IPatient>("/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      setUser(response.data);
+      return;
     } catch (error) {
       alert("Sign in failed");
     }
@@ -46,10 +34,15 @@ export const useAuth = () => {
     setUser(null);
   };
 
+  const update = async (newUser: IPatient) => {
+    setUser(newUser);
+  };
+
   return {
     user,
     signin,
     signout,
+    update
   };
 };
 

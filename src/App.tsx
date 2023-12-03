@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import CabinetPage from "./pages/Cabinet/Cabinet";
-import NotificationsPage from "./pages/Notifications/Notification";
-import LoginPage from "./pages/Login/Login";
+import CabinetPage from "./pages/Cabinet/CabinetPage";
+import NotificationsPage from "./pages/Notifications/NotificationPage";
+import LoginPage from "./pages/Login/LoginPage";
 import "./styles/styles.css";
 
 function App() {
