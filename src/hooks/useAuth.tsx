@@ -1,32 +1,16 @@
 import { useState } from "react";
-import { Gender, IPatient } from "../types/types";
-const dummyUser: IPatient = {
-  id: "1",
-  email: "example@gmail.com",
-  address: {
-    country: "Ukraine",
-    city: "Lviv city",
-    address: "example st, ap 9",
-  },
-  age: 20.5,
-  dateOfBirth: new Date("2003-01-01"),
-  firstName: "Johan",
-  lastName: "Bobalyachenko",
-  password: "pass1234",
-  phoneNumber: "380951252352",
-  sex: Gender.MALE,
-};
+import { getPatientById, signinPatient, updatePatient } from "../api";
+import { ILoginContext, IPatient } from "../types/types";
 
 export const useAuth = () => {
   const [user, setUser] = useState<IPatient | null>(null);
 
-  const signin = async (_email: string, _password: string): Promise<void> => {
+  const signin = async (loginContext: ILoginContext): Promise<void> => {
     try {
-      // For testing porpouses only
-      setUser(dummyUser);
-      return;
+      const newUser = await signinPatient(loginContext);
+      setUser(newUser);
     } catch (error) {
-      alert("Sign in failed");
+      alert(`Sign in failed: ${(error as Error).message}`);
     }
   };
 
@@ -35,8 +19,22 @@ export const useAuth = () => {
   };
 
   const update = async (newUser: IPatient) => {
-    setUser(newUser);
+    try {
+      await updatePatient(newUser);
+      await refetchUser(newUser.id);
+    } catch (error) {
+      alert(`Update failed: ${(error as Error).message}`);
+    }
   };
+
+  const refetchUser = async (id: string): Promise<void> => {
+    try {
+      const newUser = await getPatientById(id);
+      setUser(newUser);
+    } catch (error) {
+      alert(`User fetch failed: ${(error as Error).message}`);
+    }
+  }
 
   return {
     user,

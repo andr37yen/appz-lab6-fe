@@ -76,3 +76,13 @@ export interface IDocumentView extends IBaseDocument {
   content: string;
 }
 
+export interface IDoctor {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export interface ILoginContext {
+  email: string;
+  password: string;
+}

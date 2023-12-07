@@ -1,30 +1,27 @@
 import { useEffect, useState } from "react";
-
-const exampleDoctors = [
-  "Richard Johnson",
-  "Benjamin Jackson",
-  "John Smith",
-  "Elton Brown",
-]
+import { getDoctors } from "../../../api";
+import { IDoctor } from "../../../types/types";
 
 export const useDoctors = () => {
-  const [doctors, setDoctors] = useState<string[]>([]);
+  const [doctors, setDoctors] = useState<IDoctor[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        setDoctors(exampleDoctors);
-      } catch (error) {
-        setError(error as Error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchDoctors = async () => {
+    try {
+      const doctors = await getDoctors();
+      setDoctors(doctors);
+    } catch (error) {
+      setError(error as Error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchNotifications();
-  }, []);
+  useEffect(() => {
+    fetchDoctors()
+    console.log("Fetching doctors...");
+  });
 
   return { doctors, loading, error };
 };
