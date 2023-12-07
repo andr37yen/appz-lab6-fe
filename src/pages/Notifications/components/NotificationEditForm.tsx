@@ -137,8 +137,8 @@ const NotificationEditForm: React.FC<NotificationEditFormProps> = ({
           }>
           {doctors &&
             doctors.map((doctor, index) => (
-              <option key={index} value={doctor}>
-                {doctor}
+              <option key={index} value={doctor.name}>
+                {doctor.name}
               </option>
             ))}
         </select>

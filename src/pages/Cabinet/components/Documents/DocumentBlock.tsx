@@ -1,10 +1,12 @@
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { useDocuments } from "../../hooks/useDocuments";
 import { SortTypesState } from "../../../../types/types";
 import DocumentControls from "./DocumentControls";
 import DocumentList from "./DocumentList";
+import { AuthContext } from "../../../../providers/authProvider";
 
 const DocumentBlock: React.FC = () => {
+  const { user } = useContext(AuthContext)!;
   const {
     documents,
     error,
@@ -12,7 +14,7 @@ const DocumentBlock: React.FC = () => {
     createDocument,
     deleteDocument,
     verifyDocument,
-  } = useDocuments();
+  } = useDocuments((user!).id);
   const [sortType, setSortType] = useState<SortTypesState>("none");
   const [searchQuery, setSearchQuery] = useState<string>("");
 

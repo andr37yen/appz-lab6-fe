@@ -58,7 +58,7 @@ export const updateNotification = async (
   notification: INotification
 ): Promise<object> => {
   try {
-    const res = await axios.put(`${APP_DOMAIN}/notification`, notification);
+    const res = await axios.put(`${APP_DOMAIN}/notification/${notification.id}`, notification);
     return res;
   } catch (error) {
     console.error(error);

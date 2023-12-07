@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { getPatientById, signinPatient, updatePatient } from "../api";
-import { ILoginContext, IPatient } from "../types/types";
+import { IPatient } from "../types/types";
 
 export const useAuth = () => {
   const [user, setUser] = useState<IPatient | null>(null);
 
-  const signin = async (loginContext: ILoginContext): Promise<void> => {
+  const signin = async (email:string, password: string): Promise<void> => {
     try {
-      const newUser = await signinPatient(loginContext);
+      const newUser = await signinPatient({ email, password });
       setUser(newUser);
     } catch (error) {
       alert(`Sign in failed: ${(error as Error).message}`);

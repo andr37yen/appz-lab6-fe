@@ -4,7 +4,7 @@ import { APP_DOMAIN } from "../config";
 
 export const signinPatient = async (loginContext: ILoginContext): Promise<IPatient> => {
   try {
-    const res = await axios.post<IPatient>(`${APP_DOMAIN}/authentication`, loginContext);
+    const res = await axios.post<IPatient>(`${APP_DOMAIN}/authentication/login`, loginContext);
     return res.data;
   } catch (error) {
     console.error(error);
@@ -24,7 +24,7 @@ export const updatePatient = async (patient: IPatient): Promise<object> => {
 
 export const getPatientById = async (id: string): Promise<IPatient> => {
   try {
-    const res = await axios.get<IPatient>(`${APP_DOMAIN}/patients${id}`);
+    const res = await axios.get<IPatient>(`${APP_DOMAIN}/patients/${id}`);
     return res.data;
   } catch (error) {
     console.error(error);

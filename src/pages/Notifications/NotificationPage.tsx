@@ -1,11 +1,13 @@
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { NotificationViewState, SortTypesState } from "../../types/types";
 import { isNotRejectoedOrExpired } from "../../utils/timeHelper";
 import NotificationControls from "./components/NotificationControls";
 import NotificationGrid from "./components/NotificationGrid";
 import { useNotifications } from "./hooks/useNotification";
+import { AuthContext } from "../../providers/authProvider";
 
 function NotificationsPage() {
+  const { user } = useContext(AuthContext)!;
   const {
     notifications,
     loading,
@@ -13,7 +15,7 @@ function NotificationsPage() {
     createNotification,
     editNotification,
     deleteNotification,
-  } = useNotifications();
+  } = useNotifications((user!).id);
   const [viewType, setViewType] = useState<NotificationViewState>("active");
   const [sortType, setSortType] = useState<SortTypesState>("none");
   const [searchQuery, setSearchQuery] = useState("");
