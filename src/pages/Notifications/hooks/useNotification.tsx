@@ -129,7 +129,10 @@ export const useNotifications = () => {
   const editNotification = (_updated: INotification) => {};
 
   const createNotification = (newNotification: IBaseNotification) => {
-    setNotifications([...notifications, { ...newNotification, id: "" }]);
+    setNotifications([
+      ...notifications,
+      { ...newNotification, id: `${Math.ceil(Math.random() * 1000000)}` },
+    ]);
   };
 
   const deleteNotification = (id: string) => {

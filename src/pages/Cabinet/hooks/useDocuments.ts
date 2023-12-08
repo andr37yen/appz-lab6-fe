@@ -70,15 +70,23 @@ export const useDocuments = () => {
   }, []);
 
   const deleteDocument = async (id: string) => {
-    setDocuments([...documents.filter(d => d.id !== id)]);
+    setDocuments([...documents.filter((d) => d.id !== id)]);
   };
 
   const createDocument = async (document: IDocumentView) => {
-    setDocuments([...documents, { ...document, id: "3", userId: "1", "url": "#" }]);
+    setDocuments([
+      ...documents,
+      {
+        ...document,
+        id: `${Math.ceil(Math.random() * 1000000)}`,
+        userId: "1",
+        url: "#",
+      },
+    ]);
   };
 
   const verifyDocument = async (id: string) => {
-    alert(`Verifying Document ${id}...`)
+    alert(`Verifying Document ${id}...`);
   };
 
   return {
