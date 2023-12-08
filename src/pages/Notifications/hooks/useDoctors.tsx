@@ -5,7 +5,7 @@ const exampleDoctors = [
   "Benjamin Jackson",
   "John Smith",
   "Elton Brown",
-]
+];
 
 export const useDoctors = () => {
   const [doctors, setDoctors] = useState<string[]>([]);
