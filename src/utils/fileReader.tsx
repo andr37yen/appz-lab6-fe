@@ -8,6 +8,6 @@ export const readFileContent = (file: File): Promise<string> => {
     };
     reader.onerror = () => reject(reader.error);
 
-    reader.readAsText(file); 
+    reader.readAsDataURL(file); 
   });
 };

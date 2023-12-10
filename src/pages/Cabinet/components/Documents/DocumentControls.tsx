@@ -43,7 +43,7 @@ const DocumentControls: React.FC<DocumentControlsProps> = ({
       <div>
         <input
           type="text"
-          placeholder="Search notifications..."
+          placeholder="Search documents..."
           className="px-4 py-2 border rounded-md"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
