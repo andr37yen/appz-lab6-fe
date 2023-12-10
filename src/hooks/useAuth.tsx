@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getPatientById, signinPatient, updatePatient } from "../api";
 import { IPatient } from "../types/types";
 
@@ -35,6 +35,10 @@ export const useAuth = () => {
       alert(`User fetch failed: ${(error as Error).message}`);
     }
   }
+
+  useEffect(() => {
+    console.log("Current user in auth " + user)
+  }, [user])
 
   return {
     user,
