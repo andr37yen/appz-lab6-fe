@@ -1,13 +1,14 @@
 import axios from "axios";
-import { IBaseDocument, IDocument } from "../types/types";
+import { IBaseDocument, IDocument, IDocumentDto } from "../types/types";
 import { APP_DOMAIN } from "../config";
+import { convertToTrueDocument } from "../utils/typeConverter";
 
 export const getDocumentsByPatientId = async (
   id: string
 ): Promise<IDocument[]> => {
   try {
-    const res = await axios.get<IDocument[]>(`${APP_DOMAIN}/documents/${id}`);
-    return res.data;
+    const res = await axios.get<IDocumentDto[]>(`${APP_DOMAIN}/documents/${id}`);
+    return res.data.map(doc => convertToTrueDocument(doc));
   } catch (error) {
     console.error(error);
     throw new Error("Failed to fetch documents");

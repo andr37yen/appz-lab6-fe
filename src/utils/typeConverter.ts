@@ -1,6 +1,8 @@
 import {
   Gender,
   IAppointment,
+  IDocument,
+  IDocumentDto,
   INotifiacationDto,
   IPatient,
   IPatientDto,
@@ -26,21 +28,31 @@ export const convertToTrueNotification = (
     regularity: notificationDto.regularity,
   };
 };
-export const convertToTruePatient = (
-  notificationDto: IPatientDto
-): IPatient => {
-  console.log(notificationDto);
+
+export const convertToTruePatient = (patientDto: IPatientDto): IPatient => {
+  console.log(patientDto);
   return {
-    id: notificationDto.id,
-    address: notificationDto.address,
-    age: calculateAge(new Date(notificationDto.dateOfBirth)),
-    dateOfBirth: new Date(notificationDto.dateOfBirth),
-    email: notificationDto.email,
-    firstName: notificationDto.firstName,
-    lastName: notificationDto.lastName,
-    password: notificationDto.password,
-    phoneNumber: notificationDto.phoneNumber,
-    sex: notificationDto.sex as Gender,
+    id: patientDto.id,
+    address: patientDto.address,
+    age: calculateAge(new Date(patientDto.dateOfBirth)),
+    dateOfBirth: new Date(patientDto.dateOfBirth),
+    email: patientDto.email,
+    firstName: patientDto.firstName,
+    lastName: patientDto.lastName,
+    password: patientDto.password,
+    phoneNumber: patientDto.phoneNumber,
+    sex: patientDto.sex as Gender,
+  };
+};
+
+export const convertToTrueDocument = (documentDto: IDocumentDto): IDocument => {
+  console.log(documentDto);
+  return {
+    id: documentDto.id,
+    isVerified: documentDto.isVerified,
+    title: documentDto.title,
+    uploadDate: new Date(documentDto.uploadDate),
+    url: documentDto.url,
   };
 };
 

@@ -55,7 +55,6 @@ export type ProfileEditType = "personal_info" | "account_info" | "none";
 
 export interface IDocument extends IBaseDocument {
   id: string;
-  userId: string;
   url: string;
 }
 
@@ -102,4 +101,14 @@ export interface IPatientDto {
   address: Address,
   phoneNumber: string,
   sex: string,
+}
+
+
+export interface IDocumentDto {
+  id: string;
+  userId: string;
+  url: string;
+  title: string;
+  isVerified: boolean;
+  uploadDate: string;
 }
