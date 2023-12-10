@@ -75,23 +75,17 @@ const NotificationEditForm: React.FC<NotificationEditFormProps> = ({
         />
       </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          Notification Type:
-        </label>
-        <div className="flex w-full">
+      <div className="flex w-full">
           <div>
             <input
               type="radio"
               id="appointment"
               name="notificationType"
-              value={editedNotification.type}
+              value={"APPOINTMENT"}
+              checked={editedNotification.type === "APPOINTMENT"}
               className="mr-2"
-              onClick={() =>
-                setEditedNotification({
-                  ...editedNotification,
-                  type: "appointment",
-                })
+              onChange={() =>
+                setEditedNotification({ ...editedNotification, type: "APPOINTMENT" })
               }
             />
             <label htmlFor="option1" className="text-gray-600">
@@ -102,15 +96,13 @@ const NotificationEditForm: React.FC<NotificationEditFormProps> = ({
           <div className="ml-10">
             <input
               type="radio"
-              id="option2"
+              id="prescription"
               name="notificationType"
-              value={editedNotification.type}
+              value={"PRESCRIPTION"}
+              checked={editedNotification.type === "PRESCRIPTION"}
               className="mr-2"
-              onClick={() =>
-                setEditedNotification({
-                  ...editedNotification,
-                  type: "prescription",
-                })
+              onChange={() =>
+                setEditedNotification({ ...editedNotification, type: "PRESCRIPTION" })
               }
             />
             <label htmlFor="option2" className="text-gray-600">
@@ -118,7 +110,6 @@ const NotificationEditForm: React.FC<NotificationEditFormProps> = ({
             </label>
           </div>
         </div>
-      </div>
 
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -128,11 +119,11 @@ const NotificationEditForm: React.FC<NotificationEditFormProps> = ({
           id="notificationStatus"
           name="notificationStatus"
           className="px-4 py-2 border rounded-md w-full"
-          value={editedNotification.doctor}
+          value={editedNotification.doctor.name}
           onChange={(e) =>
             setEditedNotification({
-              ...editedNotification,
-              doctor: e.target.value,
+              ...notification,
+              doctor: doctors.find((doctor) => doctor.name === e.target.value)!,
             })
           }>
           {doctors &&
@@ -144,7 +135,7 @@ const NotificationEditForm: React.FC<NotificationEditFormProps> = ({
         </select>
       </div>
 
-      {editedNotification.type === "prescription" && (
+      {editedNotification.type === "PRESCRIPTION" && (
         <>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -187,7 +178,7 @@ const NotificationEditForm: React.FC<NotificationEditFormProps> = ({
         <label
           htmlFor="type"
           className="block text-gray-700 text-sm font-bold mb-2">
-          {editedNotification.type === "prescription"
+          {editedNotification.type === "PRESCRIPTION"
             ? "Prescription start date"
             : "Appointment date"}
         </label>
