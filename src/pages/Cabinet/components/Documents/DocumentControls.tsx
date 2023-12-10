@@ -36,6 +36,8 @@ const DocumentControls: React.FC<DocumentControlsProps> = ({
         });
       } catch (error) {
         console.error(error);
+      } finally {
+        event.target.value = ""
       }
     }
   };
