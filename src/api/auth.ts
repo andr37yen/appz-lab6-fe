@@ -1,16 +1,22 @@
 import axios from "axios";
-import { ILoginContext, IPatient } from "../types/types";
+import { ILoginContext, IPatient, IPatientDto } from "../types/types";
 import { APP_DOMAIN } from "../config";
+import { convertToTruePatient } from "../utils/typeConverter";
 
-export const signinPatient = async (loginContext: ILoginContext): Promise<IPatient> => {
+export const signinPatient = async (
+  loginContext: ILoginContext
+): Promise<IPatient> => {
   try {
-    const res = await axios.post<IPatient>(`${APP_DOMAIN}/authentication/login`, loginContext);
-    return res.data;
+    const res = await axios.post<IPatientDto>(
+      `${APP_DOMAIN}/authentication/login`,
+      loginContext
+    );
+    return convertToTruePatient(res.data);
   } catch (error) {
     console.error(error);
     throw new Error("Failed to signin");
   }
-}
+};
 
 export const updatePatient = async (patient: IPatient): Promise<object> => {
   try {
@@ -20,14 +26,14 @@ export const updatePatient = async (patient: IPatient): Promise<object> => {
     console.error(error);
     throw new Error("Failed to update patient data");
   }
-}
+};
 
 export const getPatientById = async (id: string): Promise<IPatient> => {
   try {
-    const res = await axios.get<IPatient>(`${APP_DOMAIN}/patients/${id}`);
-    return res.data;
+    const res = await axios.get<IPatientDto>(`${APP_DOMAIN}/patients/${id}`);
+    return convertToTruePatient(res.data);
   } catch (error) {
     console.error(error);
     throw new Error("Failed to fetch patient data");
   }
-}
+};

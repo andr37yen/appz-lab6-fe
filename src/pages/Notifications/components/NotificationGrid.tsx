@@ -16,8 +16,9 @@ const NotificationGrid: React.FC<NotificationGridProps> = ({
   return (
     <>
       <div className="grid grid-cols-3 gap-4">
-        {notifications.map((notification) => (
+        {notifications.map((notification, index) => (
           <NotificationItem
+            key={index}
             notification={notification}
             onEdit={onEdit}
             onDelete={onDelete}

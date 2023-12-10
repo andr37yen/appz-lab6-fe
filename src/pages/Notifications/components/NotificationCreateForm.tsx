@@ -78,7 +78,7 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
               value={notification.type}
               className="mr-2"
               onClick={() =>
-                setNotification({ ...notification, type: "appointment" })
+                setNotification({ ...notification, type: "APPOINTMENT" })
               }
             />
             <label htmlFor="option1" className="text-gray-600">
@@ -94,7 +94,7 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
               value={notification.type}
               className="mr-2"
               onClick={() =>
-                setNotification({ ...notification, type: "prescription" })
+                setNotification({ ...notification, type: "PRESCRIPTION" })
               }
             />
             <label htmlFor="option2" className="text-gray-600">
@@ -112,9 +112,12 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
           id="notificationStatus"
           name="notificationStatus"
           className="px-4 py-2 border rounded-md w-full"
-          value={notification.doctor}
+          value={notification.doctor?.name}
           onChange={(e) =>
-            setNotification({ ...notification, doctor: e.target.value })
+            setNotification({
+              ...notification,
+              doctor: doctors.find((doctor) => doctor.name === e.target.value),
+            })
           }>
           {doctors &&
             doctors.map((doctor, index) => (
@@ -125,7 +128,7 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
         </select>
       </div>
 
-      {notification.type === "prescription" && (
+      {notification.type === "PRESCRIPTION" && (
         <>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -165,7 +168,7 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
         <label
           htmlFor="type"
           className="block text-gray-700 text-sm font-bold mb-2">
-          {notification.type === "prescription"
+          {notification.type === "PRESCRIPTION"
             ? "Prescription start date"
             : "Appointment date"}
         </label>

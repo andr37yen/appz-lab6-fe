@@ -1,8 +1,6 @@
 import {
   INotification,
   IPrescription,
-  NotificationStatus,
-  NotificationType,
 } from "../types/types";
 
 export const getTimeLeft = (date: Date) => {
@@ -59,7 +57,7 @@ export const isNotificationExpired = (notification: INotification): boolean => {
   const currentDate = new Date();
   const expirationDate = new Date(notification.date);
 
-  if (notification.type === NotificationType.PRESCRIPTION) {
+  if (notification.type === "PRESCRIPTION") {
     const prescription = notification as IPrescription;
     expirationDate.setDate(expirationDate.getDate() + prescription.duration);
   }
@@ -71,7 +69,7 @@ export const isNotRejectoedOrExpired = (
   notification: INotification
 ): boolean => {
   if (
-    notification.status === NotificationStatus.REJECTED ||
+    notification.status === "REJECTED" ||
     isNotificationExpired(notification)
   ) {
     return false;

@@ -3,11 +3,7 @@ interface Address {
   city: string;
   address: string;
 }
-export enum Gender {
-  MALE = "MALE",
-  FEMALE = "FEMALE",
-  OTHER = "OTHER",
-}
+export type Gender = "MALE" | "FEMALE" | "OTHER";
 
 export interface IPatient {
   id: string;
@@ -35,23 +31,16 @@ export interface IBaseNotification {
   description: string;
   date: Date;
   status: NotificationStatus;
-  doctor: string;
+  doctor: IDoctor;
 }
 
 export interface INotification extends IBaseNotification {
   id: string;
 }
 
-export enum NotificationStatus {
-  PENDING_CONFIRMATION = "PENDING_CONFIRMATION",
-  ACTIVE = "ACTIVE",
-  REJECTED = "REJECTED",
-}
+export type NotificationStatus = "PENDING_CONFIRMATION" | "ACTIVE" | "REJECTED";
 
-export enum NotificationType {
-  APPOINTMENT = "APPOINTMENT",
-  PRESCRIPTION = "PRESCRIPTION",
-} 
+export type  NotificationType = "APPOINTMENT" | "PRESCRIPTION";
 
 export interface IAppointment extends INotification {}
 
@@ -89,4 +78,28 @@ export interface IDoctor {
 export interface ILoginContext {
   email: string;
   password: string;
+}
+
+export interface INotifiacationDto {
+  id: string;
+  type: string;
+  label: string;
+  description: string;
+  date: string;
+  status: string;
+  doctor: IDoctor;
+  duration?: number;
+  regularity?: string;
+}
+
+export interface IPatientDto {
+  id: string;
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  dateOfBirth: string,
+  address: Address,
+  phoneNumber: string,
+  sex: string,
 }

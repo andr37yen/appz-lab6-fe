@@ -1,11 +1,32 @@
 import { useState, useEffect } from "react";
-import { IBaseNotification, INotification } from "../../../types/types";
+import {
+  IBaseNotification,
+  INotification,
+} from "../../../types/types";
 import { getNotificationsByPatientId, updateNotification } from "../../../api";
 
 export const useNotifications = (userId: string) => {
   const [notifications, setNotifications] = useState<INotification[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
+
+  // const testNot = [
+  //   convertToTrueNotification({
+  //     id: "957570eb-485c-46bd-b56e-1638d7d9edf9",
+  //     type: "PRESCRIPTION",
+  //     label: "Appointment Reminder",
+  //     description: "Don't forget your appointment tomorrow at 10 AM.",
+  //     date: "2023-12-04T16:35:56.6166333",
+  //     status: "ACTIVE",
+  //     duration: 30,
+  //     regularity: "Once",
+  //     doctor: {
+  //       id: "402d2cc4-1ef7-46e2-a047-1774647ffcf8",
+  //       name: "Dr. Smith",
+  //       email: "vitalii.heorhiievskyi.pz.2020@lpnu.ua",
+  //     },
+  //   }),
+  // ]
 
   const fetchNotifications = async () => {
     try {

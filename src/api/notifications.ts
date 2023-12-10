@@ -1,6 +1,7 @@
 import axios from "axios";
-import { IBaseNotification, INotification } from "../types/types";
+import { IBaseNotification, INotifiacationDto, INotification } from "../types/types";
 import { APP_DOMAIN } from "../config";
+import { convertToTrueNotification } from "../utils/typeConverter";
 
 export const createNotification = async (
   notification: IBaseNotification
@@ -43,11 +44,11 @@ export const getNotificationsByPatientId = async (
   id: string
 ): Promise<INotification[]> => {
   try {
-    const res = await axios.get<INotification[]>(
+    const res = await axios.get<INotifiacationDto[]>(
       `${APP_DOMAIN}/notification/bypatient/${id}`
     );
 
-    return res.data;
+    return res.data.map(notificationDto => convertToTrueNotification(notificationDto));
   } catch (error) {
     console.error(error);
     throw new Error("Failed to get notification");

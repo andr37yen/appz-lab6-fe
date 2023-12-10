@@ -3,7 +3,6 @@ import {
   IAppointment,
   INotification,
   IPrescription,
-  NotificationType,
 } from "../../../types/types";
 import {
   getPrescriptionTimeLeft,
@@ -28,7 +27,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   const isArchived = !isNotRejectoedOrExpired(notification);
   const bgColor = isArchived
     ? "bg-gray-200"
-    : notification.type === NotificationType.APPOINTMENT
+    : notification.type === "APPOINTMENT"
     ? "bg-green-200"
     : "bg-yellow-200";
 
@@ -43,9 +42,9 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
         Status: <em>{notification.status}</em>
       </div>
       <div className="text-sm">
-        Doctor: {(notification as IAppointment).doctor}
+        Doctor: {(notification as IAppointment).doctor.name}
       </div>
-      {notification.type === NotificationType.APPOINTMENT && (
+      {notification.type === "APPOINTMENT" && (
         <>
           <div className="text-sm text-gray-600">
             {notification.date.toLocaleDateString()} -{" "}
@@ -57,7 +56,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
         </>
       )}
 
-      {notification.type === NotificationType.PRESCRIPTION && (
+      {notification.type === "PRESCRIPTION" && (
         <>
           <div className="text-sm">
             Duration: {(notification as IPrescription).duration}
