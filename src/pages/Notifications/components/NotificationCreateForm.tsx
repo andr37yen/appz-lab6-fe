@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IAppointment,
   IBaseNotification,
@@ -16,7 +16,7 @@ interface NotificationFormProps {
 const NotificationCreateForm: React.FC<NotificationFormProps> = ({
   onSubmit,
   onClose,
-  patientId
+  patientId,
 }) => {
   const { doctors } = useDoctors();
   const [notification, setNotification] = useState<
@@ -25,13 +25,17 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
     patientId: patientId,
     date: new Date(),
     description: "",
-    doctor: doctors[0],
+    doctor: doctors[0] ? doctors[0] : { name: "", email: "", id: "" },
     duration: 10,
     label: "",
     regularity: "",
     status: "PENDING_CONFIRMATION",
-    type: "APPOINTMENT"
+    type: "APPOINTMENT",
   });
+
+  useEffect(() => {
+    console.log(notification);
+  }, [notification]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,8 +89,8 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
           <div>
             <input
               type="radio"
-              id="appointment"
-              name="notificationType"
+              id="option1id"
+              name="option1"
               value={"APPOINTMENT"}
               checked={notification.type === "APPOINTMENT"}
               className="mr-2"
@@ -102,8 +106,8 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
           <div className="ml-10">
             <input
               type="radio"
-              id="prescription"
-              name="notificationType"
+              id="option2id"
+              name="option2"
               value={"PRESCRIPTION"}
               checked={notification.type === "PRESCRIPTION"}
               className="mr-2"
@@ -123,8 +127,8 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
           Doctor:
         </label>
         <select
-          id="notificationStatus"
-          name="notificationStatus"
+          id="doctorsid"
+          name="doctors"
           className="px-4 py-2 border rounded-md w-full"
           value={notification.doctor.name}
           onChange={(e) =>
