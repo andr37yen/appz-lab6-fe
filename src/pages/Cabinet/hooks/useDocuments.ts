@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IBaseDocument, IDocument } from "../../../types/types";
-import { getDocumentsByPatientId } from "../../../api";
+import { apiCreateDocument, apiDeleteDocument, apiVerifyDocument, getDocumentsByPatientId } from "../../../api";
 
 export const useDocuments = (userId: string) => {
   const [documents, setDocuments] = useState<IDocument[]>([]);
@@ -20,7 +20,7 @@ export const useDocuments = (userId: string) => {
 
   const deleteDocument = async (id: string) => {
     try {
-      await deleteDocument(id);
+      await apiDeleteDocument(id);
     } catch (error) {
       alert((error as Error).message)
     } finally {
@@ -30,7 +30,7 @@ export const useDocuments = (userId: string) => {
 
   const createDocument = async (document: IBaseDocument) => {
     try {
-      await createDocument(document);
+      await apiCreateDocument(document);
     } catch (error) {
       alert((error as Error).message)
     } finally {
@@ -40,7 +40,7 @@ export const useDocuments = (userId: string) => {
 
   const verifyDocument = async (id: string) => {
     try {
-      await verifyDocument(id);
+      await apiVerifyDocument(id);
     } catch (error) {
       alert((error as Error).message)
     } finally {

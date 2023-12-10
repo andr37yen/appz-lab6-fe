@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IAppointment,
   IBaseNotification,
@@ -17,8 +17,18 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
   onClose,
 }) => {
   const [notification, setNotification] = useState<
-    Partial<IPrescription | IAppointment>
-  >({});
+    IPrescription | IAppointment
+  >({
+    id : "",
+    date: new Date(),
+    description: "",
+    doctor: { name: "", email: "", id: "",},
+    duration: 10,
+    label: "",
+    regularity: "",
+    status: "PENDING_CONFIRMATION",
+    type: "APPOINTMENT"
+  });
   const { doctors } = useDoctors();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -75,9 +85,10 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
               type="radio"
               id="appointment"
               name="notificationType"
-              value={notification.type}
+              value={"APPOINTMENT"}
+              checked={notification.type === "APPOINTMENT"}
               className="mr-2"
-              onClick={() =>
+              onChange={() =>
                 setNotification({ ...notification, type: "APPOINTMENT" })
               }
             />
@@ -89,11 +100,12 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
           <div className="ml-10">
             <input
               type="radio"
-              id="option2"
+              id="prescription"
               name="notificationType"
-              value={notification.type}
+              value={"PRESCRIPTION"}
+              checked={notification.type === "PRESCRIPTION"}
               className="mr-2"
-              onClick={() =>
+              onChange={() =>
                 setNotification({ ...notification, type: "PRESCRIPTION" })
               }
             />
@@ -116,7 +128,7 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
           onChange={(e) =>
             setNotification({
               ...notification,
-              doctor: doctors.find((doctor) => doctor.name === e.target.value),
+              doctor: doctors.find((doctor) => doctor.name === e.target.value)!,
             })
           }>
           {doctors &&
@@ -175,9 +187,8 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
         <input
           id="content"
           type="date"
-          value={formatDate(notification.date || new Date())}
+          value={formatDate(notification.date)}
           onChange={(e) => {
-            console.log(e.target.value);
             setNotification({
               ...notification,
               date: new Date(e.target.value),

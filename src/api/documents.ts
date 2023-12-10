@@ -15,7 +15,7 @@ export const getDocumentsByPatientId = async (
   }
 };
 
-export const createDocument = async (
+export const apiCreateDocument = async (
   document: IBaseDocument
 ): Promise<object> => {
   try {
@@ -27,7 +27,7 @@ export const createDocument = async (
   }
 };
 
-export const deleteDocument = async (id: string): Promise<object> => {
+export const apiDeleteDocument = async (id: string): Promise<object> => {
   try {
     const res = await axios.delete(`${APP_DOMAIN}/documents/${id}`);
     return res;
@@ -37,7 +37,7 @@ export const deleteDocument = async (id: string): Promise<object> => {
   }
 };
 
-export const verifyDocument = async (id: string): Promise<object> => {
+export const apiVerifyDocument = async (id: string): Promise<object> => {
   try {
     const res = await axios.post(`${APP_DOMAIN}/documents/verify${id}`, {});
     return res;

@@ -3,7 +3,7 @@ import {
   IBaseNotification,
   INotification,
 } from "../../../types/types";
-import { getNotificationsByPatientId, updateNotification } from "../../../api";
+import { apiCreateNotification, apiDeleteNotification, apiUpdateNotification, getNotificationsByPatientId} from "../../../api";
 
 export const useNotifications = (userId: string) => {
   const [notifications, setNotifications] = useState<INotification[]>([]);
@@ -41,7 +41,7 @@ export const useNotifications = (userId: string) => {
 
   const editNotification = async (updated: INotification) => {
     try {
-      await updateNotification(updated);
+      await apiUpdateNotification(updated);
     } catch (error) {
       alert((error as Error).message);
     } finally {
@@ -51,7 +51,7 @@ export const useNotifications = (userId: string) => {
 
   const createNotification = async (newNotification: IBaseNotification) => {
     try {
-      await createNotification(newNotification);
+      await apiCreateNotification(newNotification);
     } catch (error) {
       alert((error as Error).message);
     } finally {
@@ -61,7 +61,7 @@ export const useNotifications = (userId: string) => {
 
   const deleteNotification = async (id: string) => {
     try {
-      await deleteNotification(id);
+      await apiDeleteNotification(id);
     } catch (error) {
       alert((error as Error).message);
     } finally {

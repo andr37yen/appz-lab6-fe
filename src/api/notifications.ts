@@ -3,7 +3,7 @@ import { IBaseNotification, INotifiacationDto, INotification } from "../types/ty
 import { APP_DOMAIN } from "../config";
 import { convertToTrueNotification } from "../utils/typeConverter";
 
-export const createNotification = async (
+export const apiCreateNotification = async (
   notification: IBaseNotification
 ): Promise<object> => {
   try {
@@ -55,7 +55,7 @@ export const getNotificationsByPatientId = async (
   }
 };
 
-export const updateNotification = async (
+export const apiUpdateNotification = async (
   notification: INotification
 ): Promise<object> => {
   try {
@@ -67,7 +67,7 @@ export const updateNotification = async (
   }
 };
 
-export const deleteNotification = async (id: string): Promise<object> => {
+export const apiDeleteNotification = async (id: string): Promise<object> => {
   try {
     const res = await axios.delete(`${APP_DOMAIN}/notification/${id}`);
     return res;

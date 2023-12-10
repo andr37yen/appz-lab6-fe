@@ -2,6 +2,19 @@ import { useEffect, useState } from "react";
 import { getDoctors } from "../../../api";
 import { IDoctor } from "../../../types/types";
 
+// const testDoctors: IDoctor[] = [
+//   {
+//     email: "shitter",
+//     id: "1",
+//     name: "Shitter",
+//   },
+//   {
+//     email: "another",
+//     id: "2",
+//     name: "another",
+//   }
+// ]
+
 export const useDoctors = () => {
   const [doctors, setDoctors] = useState<IDoctor[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
