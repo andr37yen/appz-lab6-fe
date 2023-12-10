@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   IAppointment,
   IBaseNotification,
@@ -19,7 +19,6 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
   const [notification, setNotification] = useState<
     IPrescription | IAppointment
   >({
-    id : "",
     date: new Date(),
     description: "",
     doctor: { name: "", email: "", id: "",},

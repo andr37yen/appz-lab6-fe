@@ -35,7 +35,7 @@ export interface IBaseNotification {
 }
 
 export interface INotification extends IBaseNotification {
-  id: string;
+  id?: string;
 }
 
 export type NotificationStatus = "PENDING_CONFIRMATION" | "ACTIVE" | "REJECTED";
