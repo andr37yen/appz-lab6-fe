@@ -29,30 +29,30 @@ function NotificationsPage() {
     console.log("Current user:", user)
   }, [user])
 
-  const filteredAndSortedNotifications = useMemo(() => {
-    const displayedNotifications = notifications.filter((notification) =>
-      viewType === "active"
-        ? isNotRejectoedOrExpired(notification)
-        : !isNotRejectoedOrExpired(notification)
-    );
+  // const filteredAndSortedNotifications = useMemo(() => {
+  //   const displayedNotifications = notifications.filter((notification) =>
+  //     viewType === "active"
+  //       ? isNotRejectoedOrExpired(notification)
+  //       : !isNotRejectoedOrExpired(notification)
+  //   );
 
-    const filtered = displayedNotifications.filter(
-      (notification) =>
-        notification.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        notification.description
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())
-    );
+  //   const filtered = displayedNotifications.filter(
+  //     (notification) =>
+  //       notification.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //       notification.description
+  //         .toLowerCase()
+  //         .includes(searchQuery.toLowerCase())
+  //   );
 
-    const sorted = [...filtered];
-    if (sortType === "date") {
-      sorted.sort((a, b) => a.date.getTime() - b.date.getTime());
-    } else if (sortType === "type") {
-      sorted.sort((a, b) => a.type.localeCompare(b.type));
-    }
+  //   const sorted = [...filtered];
+  //   if (sortType === "date") {
+  //     sorted.sort((a, b) => a.date.getTime() - b.date.getTime());
+  //   } else if (sortType === "type") {
+  //     sorted.sort((a, b) => a.type.localeCompare(b.type));
+  //   }
 
-    return sorted;
-  }, [sortType, searchQuery, notifications, viewType]);
+  //   return sorted;
+  // }, [sortType, searchQuery, notifications, viewType]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -72,7 +72,7 @@ function NotificationsPage() {
         createNotification={createNotification}
       />
       <NotificationGrid
-        notifications={filteredAndSortedNotifications}
+        notifications={notifications}
         onDelete={deleteNotification}
         onEdit={editNotification}
       />
