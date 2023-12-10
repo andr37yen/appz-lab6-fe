@@ -21,7 +21,7 @@ export const useDoctors = () => {
   useEffect(() => {
     fetchDoctors()
     console.log("Fetching doctors...");
-  });
+  }, []);
 
   return { doctors, loading, error };
 };
