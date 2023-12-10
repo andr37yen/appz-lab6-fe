@@ -16,7 +16,6 @@ const DocumentControls: React.FC<DocumentControlsProps> = ({
   setSearchQuery,
   setSortType,
   onUpload,
-
 }) => {
   const handleFileSelect = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -29,7 +28,7 @@ const DocumentControls: React.FC<DocumentControlsProps> = ({
         onUpload({
           isVerified: false,
           uploadDate: new Date(),
-          title: file.name,
+          name: file.name,
           content: fileContent,
         });
       } catch (error) {

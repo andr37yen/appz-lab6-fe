@@ -23,7 +23,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({
         <div className="ml-6">
           <h5 className="font-bold hover:underline">
             <a href={document.url} target="_blank" rel="noopener noreferrer">
-              {document.title}
+              {document.name}
             </a>
           </h5>
           <p>Verified: {document.isVerified ? "Yes" : "No"}</p>

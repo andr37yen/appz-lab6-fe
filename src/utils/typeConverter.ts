@@ -26,7 +26,7 @@ export const convertToTrueNotification = (
     duration: notificationDto.duration ? notificationDto.duration : 0,
     status: notificationDto.status as NotificationStatus,
     regularity: notificationDto.regularity,
-    patientId: notificationDto.patientId
+    patientId: notificationDto.patientId,
   };
 };
 
@@ -51,9 +51,10 @@ export const convertToTrueDocument = (documentDto: IDocumentDto): IDocument => {
   return {
     id: documentDto.id,
     isVerified: documentDto.isVerified,
-    title: documentDto.title,
+    name: documentDto.title,
     uploadDate: new Date(documentDto.uploadDate),
     url: documentDto.url,
+    patientId: documentDto.patientId
   };
 };
 

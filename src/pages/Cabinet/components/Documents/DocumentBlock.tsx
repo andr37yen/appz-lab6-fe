@@ -14,18 +14,17 @@ const DocumentBlock: React.FC = () => {
     createDocument,
     deleteDocument,
     verifyDocument,
-  } = useDocuments((user!).id);
+  } = useDocuments(user!.id);
   const [sortType, setSortType] = useState<SortTypesState>("none");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
-    console.log("Current user:", user)
-  }, [user])
+    console.log("Current user:", user);
+  }, [user]);
 
   const filteredAndSortedDocuments = useMemo(() => {
-    const filtered = documents.filter(
-      (document) =>
-        document.title.toLowerCase().includes(searchQuery.toLowerCase())
+    const filtered = documents.filter((document) =>
+      document.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const sorted = [...filtered];

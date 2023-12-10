@@ -41,7 +41,7 @@ export interface INotification extends IBaseNotification {
 
 export type NotificationStatus = "PENDING_CONFIRMATION" | "ACTIVE" | "REJECTED";
 
-export type  NotificationType = "APPOINTMENT" | "PRESCRIPTION";
+export type NotificationType = "APPOINTMENT" | "PRESCRIPTION";
 
 export interface IAppointment extends INotification {}
 
@@ -57,10 +57,11 @@ export type ProfileEditType = "personal_info" | "account_info" | "none";
 export interface IDocument extends IBaseDocument {
   id: string;
   url: string;
+  patientId: string;
 }
 
 export interface IBaseDocument {
-  title: string;
+  name: string;
   isVerified: boolean;
   uploadDate: Date;
 }
@@ -95,16 +96,15 @@ export interface INotifiacationDto {
 
 export interface IPatientDto {
   id: string;
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
-  dateOfBirth: string,
-  address: Address,
-  phoneNumber: string,
-  sex: string,
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  dateOfBirth: string;
+  address: Address;
+  phoneNumber: string;
+  sex: string;
 }
-
 
 export interface IDocumentDto {
   id: string;
@@ -113,4 +113,5 @@ export interface IDocumentDto {
   title: string;
   isVerified: boolean;
   uploadDate: string;
+  patientId: string;
 }
