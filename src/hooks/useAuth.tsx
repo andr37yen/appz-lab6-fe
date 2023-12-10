@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPatientById, signinPatient, updatePatient } from "../api";
 import { IPatient } from "../types/types";
+import { useNavigate } from "react-router-dom";
 
 // const testuser: IPatient = {
 //   id: "b8879171-fab7-4342-8171-82b7900e6f4c",
@@ -21,6 +22,7 @@ import { IPatient } from "../types/types";
 
 export const useAuth = () => {
   const [user, setUser] = useState<IPatient | null>(null);
+  const navigate = useNavigate();
 
   const signin = async (email: string, password: string): Promise<void> => {
     try {
@@ -33,6 +35,7 @@ export const useAuth = () => {
 
   const signout = async () => {
     setUser(null);
+    navigate("/login");
   };
 
   const update = async (newUser: IPatient) => {

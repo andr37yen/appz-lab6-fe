@@ -32,50 +32,52 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
     : "bg-yellow-200";
 
   return (
-    <div className={`p-4 rounded-lg shadow-md ${bgColor}`}>
-      <div className="font-semibold">{notification.label}</div>
-      <div className="text-sm">{notification.description}</div>
-      <div className="text-sm">
-        Type: <em>{notification.type.toUpperCase()}</em>
-      </div>
-      <div className="text-sm">
-        Status: <em>{notification.status}</em>
-      </div>
-      <div className="text-sm">
-        Doctor: {(notification as IAppointment).doctor.name}
-      </div>
-      {notification.type === "APPOINTMENT" && (
-        <>
-          <div className="text-sm text-gray-600">
-            {notification.date.toLocaleDateString()} -{" "}
-            {notification.date.toLocaleTimeString()}
-          </div>
-          <div className="text-sm text-gray-600">
-            {getTimeLeft(notification.date)}
-          </div>
-        </>
-      )}
+    <div className={`p-4 rounded-lg shadow-md ${bgColor} flex flex-col justify-between`}>
+      <div>
+        <div className="font-semibold">{notification.label}</div>
+        <div className="text-sm">{notification.description}</div>
+        <div className="text-sm">
+          Type: <em>{notification.type.toUpperCase()}</em>
+        </div>
+        <div className="text-sm">
+          Status: <em>{notification.status}</em>
+        </div>
+        <div className="text-sm">
+          Doctor: {(notification as IAppointment).doctor.name}
+        </div>
+        {notification.type === "APPOINTMENT" && (
+          <>
+            <div className="text-sm text-gray-600">
+              {notification.date.toLocaleDateString()} -{" "}
+              {notification.date.toLocaleTimeString()}
+            </div>
+            <div className="text-sm text-gray-600">
+              {getTimeLeft(notification.date)}
+            </div>
+          </>
+        )}
 
-      {notification.type === "PRESCRIPTION" && (
-        <>
-          <div className="text-sm">
-            Duration: {(notification as IPrescription).duration}
-          </div>
-          <div className="text-sm">
-            Regularity: {(notification as IPrescription).regularity}
-          </div>
-          <div className="text-sm text-gray-600">
-            {notification.date.toLocaleDateString()} -{" "}
-            {notification.date.toLocaleTimeString()}
-          </div>
-          <div className="text-sm text-gray-600">
-            {getPrescriptionTimeLeft(
-              notification.date,
-              (notification as IPrescription).duration
-            )}
-          </div>
-        </>
-      )}
+        {notification.type === "PRESCRIPTION" && (
+          <>
+            <div className="text-sm">
+              Duration: {(notification as IPrescription).duration}
+            </div>
+            <div className="text-sm">
+              Regularity: {(notification as IPrescription).regularity}
+            </div>
+            <div className="text-sm text-gray-600">
+              {notification.date.toLocaleDateString()} -{" "}
+              {notification.date.toLocaleTimeString()}
+            </div>
+            <div className="text-sm text-gray-600">
+              {getPrescriptionTimeLeft(
+                notification.date,
+                (notification as IPrescription).duration
+              )}
+            </div>
+          </>
+        )}
+      </div>
 
       <div className="flex justify-between mt-2">
         {!isArchived && (
