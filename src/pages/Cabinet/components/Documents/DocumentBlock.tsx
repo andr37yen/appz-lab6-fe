@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useDocuments } from "../../hooks/useDocuments";
 import { SortTypesState } from "../../../../types/types";
 import DocumentControls from "./DocumentControls";
@@ -17,6 +17,10 @@ const DocumentBlock: React.FC = () => {
   } = useDocuments((user!).id);
   const [sortType, setSortType] = useState<SortTypesState>("none");
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  useEffect(() => {
+    console.log("Current user " + user)
+  }, [user])
 
   const filteredAndSortedDocuments = useMemo(() => {
     const filtered = documents.filter(

@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { NotificationViewState, SortTypesState } from "../../types/types";
 import { isNotRejectoedOrExpired } from "../../utils/timeHelper";
 import NotificationControls from "./components/NotificationControls";
@@ -24,6 +24,10 @@ function NotificationsPage() {
   const handleToggleView = (type: "active" | "archived") => {
     setViewType(type);
   };
+
+  useEffect(() => {
+    console.log("Current user " + user)
+  }, [user])
 
   const filteredAndSortedNotifications = useMemo(() => {
     const displayedNotifications = notifications.filter((notification) =>

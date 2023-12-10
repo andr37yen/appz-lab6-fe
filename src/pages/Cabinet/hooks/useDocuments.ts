@@ -51,7 +51,7 @@ export const useDocuments = (userId: string) => {
   useEffect(() => {
     fetchDocuments()
     console.log("Fetching documents...");
-  });
+  }, [userId]);
 
   return {
     documents,

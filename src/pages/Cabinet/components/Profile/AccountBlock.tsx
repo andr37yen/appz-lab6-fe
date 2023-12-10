@@ -14,6 +14,10 @@ const ProfileBlock: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log("Current user " + user)
+  }, [user])
+
+  useEffect(() => {
     if (editType === "none") {
       setModalOpen(false);
     } else if (!isModalOpen) {
