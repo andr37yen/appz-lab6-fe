@@ -51,7 +51,7 @@ export const convertToTrueDocument = (documentDto: IDocumentDto): IDocument => {
   return {
     id: documentDto.id,
     isVerified: documentDto.isVerified,
-    name: documentDto.title,
+    name: documentDto.name,
     uploadDate: new Date(documentDto.uploadDate),
     url: documentDto.url,
     patientId: documentDto.patientId

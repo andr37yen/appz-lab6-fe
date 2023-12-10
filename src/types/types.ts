@@ -110,7 +110,7 @@ export interface IDocumentDto {
   id: string;
   userId: string;
   url: string;
-  title: string;
+  name: string;
   isVerified: boolean;
   uploadDate: string;
   patientId: string;
