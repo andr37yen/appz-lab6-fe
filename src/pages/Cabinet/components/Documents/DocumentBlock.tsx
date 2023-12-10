@@ -53,6 +53,7 @@ const DocumentBlock: React.FC = () => {
         setSearchQuery={setSearchQuery}
         setSortType={setSortType}
         onUpload={createDocument}
+        patientId={user!.id}
       />
       <DocumentList
         documents={filteredAndSortedDocuments}

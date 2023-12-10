@@ -8,6 +8,7 @@ interface DocumentControlsProps {
   setSearchQuery: (query: string) => void;
   setSortType: (sortType: SortTypesState) => void;
   onUpload: (document: IDocumentView) => void;
+  patientId: string;
 }
 
 const DocumentControls: React.FC<DocumentControlsProps> = ({
@@ -16,6 +17,7 @@ const DocumentControls: React.FC<DocumentControlsProps> = ({
   setSearchQuery,
   setSortType,
   onUpload,
+  patientId,
 }) => {
   const handleFileSelect = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -24,13 +26,13 @@ const DocumentControls: React.FC<DocumentControlsProps> = ({
     if (file) {
       try {
         const fileContent = await readFileContent(file);
-
         onUpload({
           isVerified: false,
           uploadDate: new Date(),
           name: file.name,
           base64content: fileContent,
-          description: ""
+          description: "",
+          patientId
         });
       } catch (error) {
         console.error(error);
