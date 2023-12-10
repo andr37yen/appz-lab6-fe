@@ -16,19 +16,19 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
   onSubmit,
   onClose,
 }) => {
+  const { doctors } = useDoctors();
   const [notification, setNotification] = useState<
     IPrescription | IAppointment
   >({
     date: new Date(),
     description: "",
-    doctor: { name: "", email: "", id: "",},
+    doctor: doctors[0],
     duration: 10,
     label: "",
     regularity: "",
     status: "PENDING_CONFIRMATION",
     type: "APPOINTMENT"
   });
-  const { doctors } = useDoctors();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,7 +123,7 @@ const NotificationCreateForm: React.FC<NotificationFormProps> = ({
           id="notificationStatus"
           name="notificationStatus"
           className="px-4 py-2 border rounded-md w-full"
-          value={notification.doctor?.name}
+          value={notification.doctor.name}
           onChange={(e) =>
             setNotification({
               ...notification,
