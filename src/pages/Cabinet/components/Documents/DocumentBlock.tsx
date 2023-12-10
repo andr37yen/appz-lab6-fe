@@ -19,7 +19,7 @@ const DocumentBlock: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
-    console.log("Current user " + user)
+    console.log("Current user:", user)
   }, [user])
 
   const filteredAndSortedDocuments = useMemo(() => {

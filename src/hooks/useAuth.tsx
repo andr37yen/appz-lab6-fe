@@ -37,7 +37,7 @@ export const useAuth = () => {
   }
 
   useEffect(() => {
-    console.log("Current user in auth " + user)
+    console.log("Current user in auth:", user)
   }, [user])
 
   return {

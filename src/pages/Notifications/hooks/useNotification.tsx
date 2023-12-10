@@ -53,6 +53,10 @@ export const useNotifications = (userId: string) => {
     console.log("Fetched notifications...");
   }, [userId]);
 
+  useEffect(() => {
+    console.log("Fetched notifications: ", notifications);
+  }, [notifications]);
+
   return {
     notifications,
     loading,

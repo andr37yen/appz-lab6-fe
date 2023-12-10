@@ -14,7 +14,7 @@ const ProfileBlock: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("Current user " + user)
+    console.log("Current user:", user)
   }, [user])
 
   useEffect(() => {
