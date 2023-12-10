@@ -26,6 +26,7 @@ export const convertToTrueNotification = (
     duration: notificationDto.duration ? notificationDto.duration : 0,
     status: notificationDto.status as NotificationStatus,
     regularity: notificationDto.regularity,
+    patientId: notificationDto.patientId
   };
 };
 

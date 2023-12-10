@@ -10,16 +10,19 @@ import { useDoctors } from "../hooks/useDoctors";
 interface NotificationFormProps {
   onSubmit: (notification: IBaseNotification) => void;
   onClose: () => void;
+  patientId: string;
 }
 
 const NotificationCreateForm: React.FC<NotificationFormProps> = ({
   onSubmit,
   onClose,
+  patientId
 }) => {
   const { doctors } = useDoctors();
   const [notification, setNotification] = useState<
     IPrescription | IAppointment
   >({
+    patientId: patientId,
     date: new Date(),
     description: "",
     doctor: doctors[0],

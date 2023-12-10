@@ -17,6 +17,7 @@ interface NotificationControlsProps {
   setModalOpen: (newModalState: boolean) => void;
   isModalOpen: boolean;
   createNotification: (newNotification: IBaseNotification) => void;
+  patientId: string;
 }
 
 const NotificationControls: React.FC<NotificationControlsProps> = ({
@@ -29,6 +30,7 @@ const NotificationControls: React.FC<NotificationControlsProps> = ({
   setModalOpen,
   isModalOpen,
   createNotification,
+  patientId,
 }) => {
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortType(e.target.value as SortTypesState);
@@ -80,6 +82,7 @@ const NotificationControls: React.FC<NotificationControlsProps> = ({
 
         <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
           <NotificationCreateForm
+            patientId={patientId}
             onSubmit={createNotification}
             onClose={() => setModalOpen(false)}
           />

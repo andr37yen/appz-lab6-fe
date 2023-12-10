@@ -36,6 +36,7 @@ export interface IBaseNotification {
 
 export interface INotification extends IBaseNotification {
   id?: string;
+  patientId?: string;
 }
 
 export type NotificationStatus = "PENDING_CONFIRMATION" | "ACTIVE" | "REJECTED";
@@ -89,6 +90,7 @@ export interface INotifiacationDto {
   doctor: IDoctor;
   duration?: number;
   regularity?: string;
+  patientId: string;
 }
 
 export interface IPatientDto {

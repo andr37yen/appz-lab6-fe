@@ -70,6 +70,7 @@ function NotificationsPage() {
         setSearchQuery={setSearchQuery}
         setModalOpen={setModalOpen}
         createNotification={createNotification}
+        patientId={user!.id}
       />
       <NotificationGrid
         notifications={filteredAndSortedNotifications}

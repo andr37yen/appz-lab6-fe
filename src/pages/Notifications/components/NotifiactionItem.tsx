@@ -89,7 +89,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
         )}
 
         <button
-          onClick={() => onDelete(notification.id)}
+          onClick={() => onDelete(notification.id!)}
           className="text-red-500 hover:text-red-700 text-sm">
           Delete
         </button>
