@@ -22,6 +22,10 @@ const DocumentBlock: React.FC = () => {
     console.log("Current user:", user);
   }, [user]);
 
+  useEffect(() => {
+    console.log("Current user:", documents);
+  }, [documents]);
+
   const filteredAndSortedDocuments = useMemo(() => {
     const filtered = documents.filter((document) =>
       document.name.toLowerCase().includes(searchQuery.toLowerCase())
