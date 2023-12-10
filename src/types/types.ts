@@ -69,6 +69,7 @@ export interface IBaseDocument {
 export interface IDocumentView extends IBaseDocument {
   base64content: string;
   description: string;
+  patientId: string;
 }
 
 export interface IDoctor {
