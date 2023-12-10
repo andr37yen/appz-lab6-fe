@@ -29,7 +29,8 @@ const DocumentControls: React.FC<DocumentControlsProps> = ({
           isVerified: false,
           uploadDate: new Date(),
           name: file.name,
-          content: fileContent,
+          base64content: fileContent,
+          description: ""
         });
       } catch (error) {
         console.error(error);
