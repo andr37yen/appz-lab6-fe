@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../providers/authProvider";
 
@@ -9,7 +9,7 @@ function Navbar() {
 
   const redirectToLogin = () => {
     navigate("/login");
-  }
+  };
 
   return (
     <nav className="sticky top-0 z-100 bg-blue-500 w-full h-18 p-4">
@@ -29,16 +29,17 @@ function Navbar() {
               </Link>
             </div>
             <button
-              onClick={() => signout()}
+              onClick={() => {
+                signout();
+                navigate("/login");
+              }}
               className="btn-secondary">
               Sign out
             </button>
           </>
         ) : (
           <>
-            <button
-              onClick={redirectToLogin}
-              className="btn-primary">
+            <button onClick={redirectToLogin} className="btn-primary">
               Sign in
             </button>
           </>
