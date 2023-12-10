@@ -48,6 +48,11 @@ export enum NotificationStatus {
   REJECTED = "REJECTED",
 }
 
+export enum NotificationType {
+  APPOINTMENT = "APPOINTMENT",
+  PRESCRIPTION = "PRESCRIPTION",
+} 
+
 export interface IAppointment extends INotification {}
 
 export interface IPrescription extends INotification {
@@ -55,7 +60,6 @@ export interface IPrescription extends INotification {
   regularity: string;
 }
 
-export type NotificationType = "appointment" | "prescription";
 export type NotificationViewState = "active" | "archived";
 export type SortTypesState = "date" | "type" | "none";
 export type ProfileEditType = "personal_info" | "account_info" | "none";
